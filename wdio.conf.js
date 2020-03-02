@@ -1,40 +1,44 @@
 const { addArgument } = require('@wdio/allure-reporter').default;
 const debug = !!process.env.DEBUG;
 const execArgv = debug ? ['--inspect'] : [];
-const stepTimout = debug ? 24 * 60 * 60 * 1000 : 6000;
+const stepTimout = debug ? 24 * 60 * 60 * 1000 : 120000;
 const capabilities = debug
     ? [{ browserName: 'chrome', maxInstances: 1 }]
     : [
-          {
-              // maxInstances can get overwritten per capability. So if you have an in-house Selenium
-              // grid with only 5 firefox instances available you can make sure that not more than
-              // 5 instances get started at a time.
-              maxInstances: 5,
-              //
-              browserName: 'chrome',
-              // If outputDir is provided WebdriverIO can capture driver session logs
-              // it is possible to configure which logTypes to include/exclude.
-              // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
-              // excludeDriverLogs: ['bugreport', 'server'],
-              'goog:chromeOptions': {
-                  // to run chrome headless the following flags are required
-                  // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
-                  args: [
-                      '--headless',
-                      '--disable-gpu',
-                      '--disable-software-rasterizer',
-                  ],
-              },
-          },
-          {
-              maxInstances: 5,
-              browserName: 'firefox',
-              'moz:firefoxOptions': {
-                  // flag to activate Firefox headless mode (see https://github.com/mozilla/geckodriver/blob/master/README.md#firefox-capabilities for more details about moz:firefoxOptions)
-                  args: ['-headless'],
-              },
-          },
-      ];
+        {
+            // maxInstances can get overwritten per capability. So if you have an in-house Selenium
+            // grid with only 5 firefox instances available you can make sure that not more than
+            // 5 instances get started at a time.
+            maxInstances: 5,
+            //
+            browserName: 'chrome',
+            // If outputDir is provided WebdriverIO can capture driver session logs
+            // it is possible to configure which logTypes to include/exclude.
+            // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
+            // excludeDriverLogs: ['bugreport', 'server'],
+            'goog:chromeOptions': {
+                // to run chrome headless the following flags are required
+                // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
+                args: [
+                    '--headless',
+                    '--start-maximized',
+                    '--incognito',
+                    '--allow-running-insecure-content',
+                    '--disable-web-security'
+                    //   '--disable-gpu',
+                    //   '--disable-software-rasterizer',
+                ],
+            },
+        },
+        //   {
+        //       maxInstances: 5,
+        //       browserName: 'firefox',
+        //       'moz:firefoxOptions': {
+        //           // flag to activate Firefox headless mode (see https://github.com/mozilla/geckodriver/blob/master/README.md#firefox-capabilities for more details about moz:firefoxOptions)
+        //           args: ['-headless'],
+        //       },
+        //   },
+    ];
 
 const maxInstances = debug ? 1 : 10;
 let scenarioCounter = 0;
@@ -61,11 +65,17 @@ exports.config = {
     // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
-    specs: ['./src/features/**/*.feature'],
+    specs: ['./src/features/*.feature'],
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
     ],
+    // 
+    // ============
+    // Global TimeOut
+    shortWait: 5000,
+    mediumWait: 15000,
+    longWait: 30000,
     //
     // ============
     // Capabilities
@@ -126,7 +136,7 @@ exports.config = {
     baseUrl: 'http://localhost:3112',
     //
     // Default timeout for all waitFor* commands.
-    waitforTimeout: 10000,
+    waitforTimeout: 15000,
     //
     // Default timeout in milliseconds for request
     // if Selenium Grid doesn't send response
@@ -189,7 +199,7 @@ exports.config = {
                 require('ts-node').register({ files: true });
             },
         ],
-        require: ['./src/stepDefinitions/*.steps.ts'], // <string[]> (file/dir) require files before executing features
+        require: ['./src/step_definitions/*.steps.ts'], // <string[]> (file/dir) require files before executing features
     },
 
     //
@@ -224,7 +234,7 @@ exports.config = {
      */
     // before: function (capabilities, specs) {
     // },
-    before: function(capabilities, specs) {
+    before: function (capabilities, specs) {
         // require('ts-node/register');
         require('ts-node').register({ files: true });
     },
@@ -238,7 +248,7 @@ exports.config = {
     /**
      * Runs before a Cucumber feature
      */
-    beforeFeature: function(uri, feature, scenarios) {
+    beforeFeature: function (uri, feature, scenarios) {
         scenarioCounter = 0;
     },
     /**
@@ -256,15 +266,15 @@ exports.config = {
      */
     // afterStep: function (uri, feature, { error, result, duration, passed }, stepData, context) {
     // },
-    afterStep: function(uri, feature, { error }) {
-        if (error !== undefined) {
-            browser.takeScreenshot();
-        }
-    },
+    // afterStep: function (uri, feature, { error }) {
+    //     if (error !== undefined) {
+    //         browser.takeScreenshot();
+    //     }
+    // },
     /**
      * Runs after a Cucumber scenario
      */
-    afterScenario: function(uri, feature, scenario, result, sourceLocation) {
+    afterScenario: function (uri, feature, scenario, result, sourceLocation) {
         scenarioCounter += 1;
         addArgument('Scenario #', scenarioCounter);
     },
@@ -273,11 +283,11 @@ exports.config = {
      */
     // afterFeature: function (uri, feature, scenarios) {
     // },
-    // afterTest: function(test) {
-    //     if (test.error !== undefined) {
-    //     browser.takeScreenshot();
-    //     }
-    // }
+    afterTest: function (test) {
+        if (test.error !== undefined) {
+            browser.takeScreenshot();
+        }
+    }
     /**
      * Runs after a WebdriverIO command gets executed
      * @param {String} commandName hook command name

@@ -7,6 +7,14 @@
     npm run test:debug
     npm run allure-report
 
+## Alternative to npm run test using WDIO CLI Test Runner
+On windows, run this command on the root directory of this project
+    .\node_modules\.bin\wdio wdio.conf.js
+
+    Suffix this code above if you want to run scenarios with specific tags
+    --cucumberOpts.tagExpression "@optional"
+
+
 ## Boilerplate project with CucumberJS configured with typescript
 
 -   Allure Reporter
