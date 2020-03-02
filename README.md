@@ -11,7 +11,7 @@
 On windows, run this command on the root directory of this project
     .\node_modules\.bin\wdio wdio.conf.js
 
-    Suffix this code above if you want to run scenarios with specific tags
+  Suffix this code above if you want to run scenarios with specific tags
     --cucumberOpts.tagExpression "@optional"
 
 
