@@ -167,10 +167,14 @@ exports.config = {
     // see also: https://webdriver.io/docs/dot-reporter.html
     reporters: [
         'spec',
+        'dot',
         [
             'junit',
             {
-                outputDir: './'
+                outputDir: './',
+                outputFileFormat: function (options) {
+                    return 'junit.xml'
+                }
             },
             'allure',
             {

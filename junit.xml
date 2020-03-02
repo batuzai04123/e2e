@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Perform_Login_on_BioMark_Test_Page" timestamp="2020-03-03T04:29:54" time="6.612" tests="5" failures="0" errors="0" skipped="0">
+    <properties>
+      <property name="specId" value="0"/>
+      <property name="featureName" value="Perform Login on BioMark Test Page"/>
+      <property name="capabilities" value="chrome.80_0_3987_122.windowsnt"/>
+      <property name="featureFile" value=".\src\features\loginpage-verify-login.feature"/>
+    </properties>
+    <testcase classname="CucumberJUnitReport-chrome.80_0_3987_122.windowsnt.Perform_Login_on_BioMark_Test_Page" name="Perform_Login_on_BioMark_Test_Page.Valid_User_Login" time="3.068">
+      <system-out>
+        <![CDATA[
+✅ Given I navigate to url "https://internal-doctor.biomarking.com/login"
+✅ Then I see title page "Doctors Portal | Biomark" is displayed
+✅ When I enter username "scenario_sy@mailinator.com"
+✅ And I enter password "1qw21qw2"
+✅ And I tap Login button
+✅ Then I can see "View My Profile" text displayed
+✅ And I perform logout
+
+]]>
+      </system-out>
+    </testcase>
+    <testcase classname="CucumberJUnitReport-chrome.80_0_3987_122.windowsnt.Perform_Login_on_BioMark_Test_Page" name="Perform_Login_on_BioMark_Test_Page.Invalid_User_Login_Valid_Email_Address_invalid_Password" time="1.033">
+      <system-out>
+        <![CDATA[
+✅ Given I navigate to url "https://internal-doctor.biomarking.com/login"
+✅ Then I see title page "Doctors Portal | Biomark" is displayed
+✅ When I enter username "scenario_sy@mailinator.com"
+✅ And I enter password "1qw21qw2e"
+✅ And I tap Login button
+✅ Then I can see "The email address or the password you inputted is incorrect" text displayed
+
+]]>
+      </system-out>
+    </testcase>
+    <testcase classname="CucumberJUnitReport-chrome.80_0_3987_122.windowsnt.Perform_Login_on_BioMark_Test_Page" name="Perform_Login_on_BioMark_Test_Page.Invalid_User_Login_Invalid_Email_Address_valid_Password" time="1.039">
+      <system-out>
+        <![CDATA[
+✅ Given I navigate to url "https://internal-doctor.biomarking.com/login"
+✅ Then I see title page "Doctors Portal | Biomark" is displayed
+✅ When I enter username "scenario_sy1@mailinator.com"
+✅ And I enter password "1qw21qw2"
+✅ And I tap Login button
+✅ Then I can see "The email address or the password you inputted is incorrect" text displayed
+
+]]>
+      </system-out>
+    </testcase>
+    <testcase classname="CucumberJUnitReport-chrome.80_0_3987_122.windowsnt.Perform_Login_on_BioMark_Test_Page" name="Perform_Login_on_BioMark_Test_Page.Invalid_User_Login_Invalid_Email_Address_invalid_Password" time="1.037">
+      <system-out>
+        <![CDATA[
+✅ Given I navigate to url "https://internal-doctor.biomarking.com/login"
+✅ Then I see title page "Doctors Portal | Biomark" is displayed
+✅ When I enter username "scenario_sy1@mailinator.com"
+✅ And I enter password "1qw21qw2e"
+✅ And I tap Login button
+✅ Then I can see "The email address or the password you inputted is incorrect" text displayed
+
+]]>
+      </system-out>
+    </testcase>
+    <testcase classname="CucumberJUnitReport-chrome.80_0_3987_122.windowsnt.Perform_Login_on_BioMark_Test_Page" name="Perform_Login_on_BioMark_Test_Page.Invalid_User_Login_Required_mandatory_fields" time="0.419">
+      <system-out>
+        <![CDATA[
+✅ Given I navigate to url "https://internal-doctor.biomarking.com/login"
+✅ Then I see title page "Doctors Portal | Biomark" is displayed
+✅ When I enter username ""
+✅ And I enter password ""
+✅ And I tap Login button
+✅ Then I can see form displays "Please fill out this field." message
+
+]]>
+      </system-out>
+    </testcase>
+  </testsuite>
+</testsuites>
