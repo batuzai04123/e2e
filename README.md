@@ -1,5 +1,11 @@
 # WebdriverIO CucumberJS Typescript
 
+## Required Applicatioons and libraries
+- Java 1.8
+- Node.JS v12.6.x
+- Visual Studio Code 
+    - (with extension Cucumber-Gherkin installed from https://marketplace.visualstudio.com/items?itemName=alexkrechik.cucumberautocomplete)
+
 ## Usage
 
     npm install
@@ -9,10 +15,12 @@
 
 ## Alternative to npm run test using WDIO CLI Test Runner
 On windows, run this command on the root directory of this project
+    
     .\node_modules\.bin\wdio wdio.conf.js
 
 Suffix this code above if you want to run scenarios with specific tags
-    --cucumberOpts.tagExpression "@optional"
+     
+     --cucumberOpts.tagExpression "@optional"
 
 
 ## Boilerplate project with CucumberJS configured with typescript
