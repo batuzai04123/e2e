@@ -168,6 +168,10 @@ exports.config = {
     reporters: [
         'spec',
         [
+            'junit',
+            {
+                outputDir: './'
+            },
             'allure',
             {
                 outputDir: 'allure-results',
